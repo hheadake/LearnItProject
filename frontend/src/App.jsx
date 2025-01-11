@@ -14,6 +14,10 @@ import ExitLink from './components/Logout/ExitLink';
 import './index.css';
 import CreateTest from './components/CreateTest/CreateTest';
 
+import ProfileCard from './components/Profile/Profile';
+import FormProfile from './components/Profile/EditProfile';
+
+
 
 
 
@@ -22,16 +26,15 @@ function App() {
   return (
     <AuthContextProvider>
     <BrowserRouter>
-    
+
     <Routes>
       <Route path="/" element={<MainPage />} />
-      <Route path="/dashboard" element={<DashboardLayoutBasic />} />
+      <Route path="/dashboard/*" element={<DashboardLayoutBasic />} />
+      <Route path="/profile" element={<ProfileCard/>} />
+      <Route path="/editProfile" element={<FormProfile/>} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
-      <Route path="/test" element={<TestTable />} />
-      <Route path="/catalog" element={<Catalog />} />
       <Route path="/logout" element={<ExitLink />} />
-      <Route path='/createTest' element={<CreateTest/>} />
     </Routes>
     </BrowserRouter>
 

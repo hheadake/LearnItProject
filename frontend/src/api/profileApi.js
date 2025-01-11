@@ -1,4 +1,4 @@
-const BASE_URL = 'http://localhost:3000/user/register'
+const BASE_URL = 'http://localhost:3000/profile/create'
 import * as request from './requester'
 
 const createProfile = (profileData) => request.post(`${BASE_URL}`, profileData)

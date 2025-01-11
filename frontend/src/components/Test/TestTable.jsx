@@ -1,7 +1,11 @@
 import React from 'react';
+import { Link, useParams } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import { Box } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import { Button } from '@mui/material';
+
+import testAPI from '../../api/testApi';
 
 const rows = [
   { id: 1, username: '@MUI', age: 20 },
@@ -40,6 +44,37 @@ const columns = [
 ];
 
 const CenteredDataGridWithButtons = () => {
+
+
+
+  const [questions, setQuestions] = useState([]);
+  const testId = useParams();
+
+  useEffect(() => {
+    try {
+      testAPI.getAll().then((result) => setQuestions(result));
+   
+    
+    } catch (err) {
+      console.log(err)
+    }
+    
+  }, []);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   return (
     <Box
       sx={{

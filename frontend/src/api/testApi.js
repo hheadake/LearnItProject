@@ -1,7 +1,7 @@
 import * as request from './requester'
 
 
-const BASE_URL = 'http://localhost:3000/teacher'
+const BASE_URL = 'http://localhost:3000/tests'
 
 const accessToken = localStorage.getItem('accessToken')
 

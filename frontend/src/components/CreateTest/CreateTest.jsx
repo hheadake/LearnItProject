@@ -1,185 +1,132 @@
 import React from 'react';
+
 import { useForm } from '../../hooks/formHooks';
-import { useAddTest } from '../../hooks/useTest';
 import { useNavigate } from 'react-router-dom';
-import {
-  Box,
-  Button,
-  Card,
-  CardContent,
-  Grid,
-  IconButton,
-  Radio,
-  TextField,
-  Typography,
-} from '@mui/material';
-import DeleteIcon from '@mui/icons-material/Delete';
+import { useAddTest } from '../../hooks/useTest';
+
+
 
 const CreateTest = () => {
   const addTest = useAddTest();
   const navigate = useNavigate();
 
+
+
+
   const initialValues = {
-    title: "", 
-    questions: [
-      {
-        questionText: "", 
-        options: [], 
-        correctOption: "", 
-      },
-    ],
+    questionText: '',
+    correctAnswer: '',
+    wrongAnswer: '',
+
   };
+
   const submitCallBack = async (values) => {
-    const formattedData = {
-      title: values.title, 
-      questions: values.questions.map((q) => ({
-        questionText: q.questionText, 
-        options: q.options, 
-        correctOption: q.correctOption, 
-      })),
-    };
-  
-    console.log("Formatted Data:", formattedData);
-  
-    try {
-      await addTest(formattedData); 
-      navigate("/");
-    } catch (err) {
-      console.error("Error submitting quiz:", err);
+    const data = {
+      questionText: values.questionText,
+      correctAnswer: values.correctAnswer,
+      wrongAnswer: values.wrongAnswer,
     }
-  };
-  
+
+    try {
+       
+      await addTest(data);
+      navigate('/');
+    } catch (err) {
+      console.log('Error while creating the test:', err);
+    }
+
+
+
+  }
+
 
   const {
-    values: { questions },
+    values,
     changeStateHandler,
     submitHandler,
   } = useForm(initialValues, submitCallBack);
 
-  const addQuestion = () => {
-    const newQuestions = [
-      ...questions,
-      {
-        question: '',
-        options: [
-          { text: '', correct: false },
-          { text: '', correct: false },
-          { text: '', correct: false },
-        ],
-      },
-    ];
-    changeStateHandler({
-      target: {
-        name: 'questions',
-        value: newQuestions,
-      },
-    });
-  };
-
-  const editQuestion = (index, newQuestion) => {
-    const updatedQuestions = [...questions];
-    updatedQuestions[index].question = newQuestion;
-    changeStateHandler({
-      target: {
-        name: 'questions',
-        value: updatedQuestions,
-      },
-    });
-  };
-
-  const editOption = (qIndex, oIndex, newOptionText) => {
-    const updatedQuestions = [...questions];
-    updatedQuestions[qIndex].options[oIndex] = newOptionText; 
-    changeStateHandler({
-      target: {
-        name: "questions",
-        value: updatedQuestions,
-      },
-    });
-  };
-
-  const markCorrect = (qIndex, oIndex) => {
-    const updatedQuestions = [...questions];
-    updatedQuestions[qIndex].options = updatedQuestions[qIndex].options.map((option, index) => ({
-      ...option,
-      correct: index === oIndex,
-    }));
-    changeStateHandler({
-      target: {
-        name: 'questions',
-        value: updatedQuestions,
-      },
-    });
-  };
-
-  const deleteQuestion = (index) => {
-    const updatedQuestions = questions.filter((_, i) => i !== index);
-    changeStateHandler({
-      target: {
-        name: 'questions',
-        value: updatedQuestions,
-      },
-    });
-  };
-
   return (
-    <Box sx={{ maxWidth: 800, mx: 'auto', p: 2 }}>
-      <Typography variant="h4" align="center" gutterBottom>
-        Quiz
-      </Typography>
-      <form onSubmit={submitHandler}>
-        {questions.map((q, qIndex) => (
-          <Card key={qIndex} sx={{ mb: 2 }}>
-            <CardContent>
-              <TextField
-                fullWidth
-                label={`Question ${qIndex + 1}`}
-                value={q.question}
-                onChange={(e) => editQuestion(qIndex, e.target.value)}
-                variant="outlined"
-                margin="normal"
+    <div className="bg-blue-200 min-h-screen flex items-center">
+
+      <div className="w-full">
+
+        <div className="bg-white p-10 rounded-lg shadow md:w-3/4 mx-auto lg:w-1/2">
+          <form onSubmit={submitHandler}>
+
+            <div className="mb-20">
+              <label
+                htmlFor="questionTitle"
+                className="center mb-2 font-bold text-gray-600"
+              >
+                Задай въпрос
+              </label>
+              <input
+                type="text"
+                id="questionText"
+                name="questionText"
+                value={values.questionText}
+                onChange={changeStateHandler}
+                className="border border-gray-300 shadow p-3 w-full rounded mb-"
               />
+            </div>
 
-              <Grid container spacing={2}>
-                {q.options.map((option, oIndex) => (
-                  <Grid item xs={12} sm={6} key={oIndex}>
-                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                      <TextField
-                        fullWidth
-                        label={`Option ${oIndex + 1}`}
-                        value={option.text}
-                        onChange={(e) => editOption(qIndex, oIndex, e.target.value)}
-                        variant="outlined"
-                      />
-                      <Radio
-                        checked={option.correct}
-                        onChange={() => markCorrect(qIndex, oIndex)}
-                        color="primary"
-                      />
-                    </Box>
-                  </Grid>
-                ))}
-              </Grid>
+            <div className="mb-5">
+              <label
+                htmlFor="option1"
+                className="block mb-2 font-bold text-gray-600"
+              >
+                Верен отговор
+              </label>
+              <div className="flex items-center">
+                <input
+                  type="text"
+                  id="option"
+                  name="correctAnswer"
+                  value={values.correctAnswer}
+                  onChange={changeStateHandler}
+                  placeholder="Отговор 1"
+                  className="border border-gray-300 shadow p-3 w-full rounded mr-4"
+                />
+                
+                <label htmlFor="correct1" className="ml-2 text-gray-600">
 
-              <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 2 }}>
-                <IconButton color="error" onClick={() => deleteQuestion(qIndex)}>
-                  <DeleteIcon />
-                </IconButton>
-              </Box>
-            </CardContent>
-          </Card>
-        ))}
+                </label>
+              </div>
+            </div>
+            
+            <div className="mb-5">
+              <label
+                htmlFor="option2"
+                className="block mb-2 font-bold text-gray-600"
+                >
+                Грешен отговор
+              </label>
+              <div className="flex items-center">
+                <input
+                  type="text"
+                  id="option2"
+                  value={values.wrongAnswer}
+                  onChange={changeStateHandler}
+                  name="wrongAnswer"
+                  placeholder="Отговор 2"
+                  className="border border-gray-300 shadow p-3 w-full rounded mr-4"
+                  />
+               
+                <label htmlFor="correct2" className="ml-2 text-gray-600">
+                
+                </label>
+              </div>
+            </div>
 
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 3 }}>
-          <Button variant="contained" color="primary" onClick={addQuestion}>
-            Add Question
-          </Button>
-          <Button type="submit" variant="contained" color="success">
-            Save
-          </Button>
-        </Box>
-      </form>
-    </Box>
+            <button className="block w-full bg-blue-500 text-white font-bold p-4 rounded-lg">
+              Submit
+            </button>
+          </form>
+        </div>
+      </div>
+
+    </div>
   );
 };
 

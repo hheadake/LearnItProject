@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -14,6 +15,10 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { Avatar, Badge, styled } from '@mui/material';
 import { FlutterDashRounded, LogoutRounded, Mail, Notifications, SettingsRounded } from '@mui/icons-material';
+
+import TestTable from '../components/Test/TestTable';
+import Catalog from './Catalog/Catalog';
+import CreateTest from './CreateTest/CreateTest';
 
 
 
@@ -32,17 +37,17 @@ const Icons = styled(Box)(({ theme }) => ({
 
 const NAVIGATION = [
   {
-    segment: 'test',
+    segment: 'dashboard/test',
     title: 'Тестове',
     icon: <DashboardIcon />,
   },
   {
-    segment: 'catalog',
+    segment: 'dashboard/catalog',
     title: 'Ученици',
     icon: <ShoppingCartIcon />,
   },
   {
-    segment: 'createTest',
+    segment: 'dashboard/createTest',
     title: 'Създай тест',
     icon: <ShoppingCartIcon />,
   }
@@ -115,13 +120,17 @@ function SimpleDashboard() {
             <Typography variant="h6" sx={{ display: { xs: "none", sm: "block" } }}>LearnIt</Typography>
             <FlutterDashRounded variant="h6" sx={{ display: { xs: "block", sm: "none" } }}></FlutterDashRounded>
             <Icons>
-              <Avatar sx={{ width: 30, height: 30 }}></Avatar>
+              <Link to='/profile'>
+                <Avatar sx={{ width: 30, height: 30 }}>
+                </Avatar>
+              </Link>
               <Badge badgeContent={4} color="eror">
                 <Mail />
               </Badge>
               <Badge badgeContent={4} color="eror">
                 <Notifications />
               </Badge>
+
               <Badge>
                 <SettingsRounded />
               </Badge>
@@ -136,7 +145,24 @@ function SimpleDashboard() {
           </StyledToolBar>
 
         </AppBar>
-        <DemoPageContent page={selectedPage} />
+        {/* <DemoPageContent page={selectedPage} /> */}
+        {/* Route-based content for main section */}
+        <Box
+          sx={{
+            py: 4,
+            px: 2,
+            textAlign: 'center',
+            flex: 1,
+            bgcolor: '#f4f4f4',
+          }}
+        >
+          <Routes>
+            <Route path="test" element={<TestTable />} />
+            <Route path="catalog" element={<Catalog />} />
+            <Route path="createTest" element={<CreateTest />} />
+            {/* <Route path="*" element={<Catalog />} /> */}
+          </Routes>
+        </Box>
       </Box>
     </Box>
   );
