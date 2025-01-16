@@ -4,12 +4,9 @@ import { logout } from "../api/authApi";
 
 
 export const AuthContext = createContext({
-    email: '',
     userID: '',
+    email: '',
     accessToken: '',
-    role: '',
-    name: '',
-    familyName: '',
     isAuthenticated: false,
     changeAuthState: (authState = {}) => null,
     logout: () => null,
@@ -29,12 +26,9 @@ export function AuthContextProvider(props) {
     }
 
     const contextData = {
-        email: authState?.email,
-        role: authState?.select,
-        name: authState?.name,
-        familyName: authState?.familyName,
-        userID: authState?._id,
-        accessToken: authState?.accessToken,
+        userID: authState._id,
+        email: authState.email,
+        accessToken: authState.accessToken,
         changeAuthState,
         isAuthenticated: !!authState?.email,
         logout,

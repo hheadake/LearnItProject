@@ -19,6 +19,7 @@ import { FlutterDashRounded, LogoutRounded, Mail, Notifications, SettingsRounded
 import TestTable from '../components/Test/TestTable';
 import Catalog from './Catalog/Catalog';
 import CreateTest from './CreateTest/CreateTest';
+import FormProfile from './Profile/EditProfile';
 
 
 
@@ -49,6 +50,12 @@ const NAVIGATION = [
   {
     segment: 'dashboard/createTest',
     title: 'Създай тест',
+    icon: <ShoppingCartIcon />,
+  }
+  ,
+  {
+    segment: 'dashboard/editProfile',
+    title: 'Профил',
     icon: <ShoppingCartIcon />,
   }
 ];
@@ -160,6 +167,7 @@ function SimpleDashboard() {
             <Route path="test" element={<TestTable />} />
             <Route path="catalog" element={<Catalog />} />
             <Route path="createTest" element={<CreateTest />} />
+            <Route path="/editProfile" element={<FormProfile/>} />
             {/* <Route path="*" element={<Catalog />} /> */}
           </Routes>
         </Box>

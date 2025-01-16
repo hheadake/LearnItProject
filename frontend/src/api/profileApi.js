@@ -1,7 +1,7 @@
-const BASE_URL = 'http://localhost:3000/profile/create'
+const BASE_URL = 'http://localhost:3000/profile'
 import * as request from './requester'
 
-const createProfile = (profileData) => request.post(`${BASE_URL}`, profileData)
+const createProfile = (profileData) => request.post(`${BASE_URL}/create`, profileData)
 
 const getOne = (profileId) => request.get(`${BASE_URL}/${profileId}`)
 

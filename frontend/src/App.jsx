@@ -31,7 +31,6 @@ function App() {
       <Route path="/" element={<MainPage />} />
       <Route path="/dashboard/*" element={<DashboardLayoutBasic />} />
       <Route path="/profile" element={<ProfileCard/>} />
-      <Route path="/editProfile" element={<FormProfile/>} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
       <Route path="/logout" element={<ExitLink />} />

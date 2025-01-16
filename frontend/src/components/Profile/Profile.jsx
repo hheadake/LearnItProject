@@ -9,7 +9,9 @@ import { useAddProfile } from '../../hooks/useProfile';
 
 const ProfileCard = () => {
 
-  // const {name, familyName,role,email, userID} = useContext(AuthContext)
+  const _id = { userID } = useContext(AuthContext)
+  console.log(_id)
+
   // const profileData = {
   //   name: name,
   //   familyName: familyName,
@@ -17,28 +19,28 @@ const ProfileCard = () => {
   //   email: email,
   //   userID: userID
   // }
-  
-  
+
+
   // try {
   //   useAddProfile(profileData)
-    
+
   // } catch (err) {
   //   console.log(err);
-    
+
   // }
 
 
- 
-// const { profileId } = useParams();
+
+  // const { profileId } = useParams();
 
 
-  
-//  const [profile, setProfile] = useGetOneProfile(userID);
 
-// console.log(profile)
-  
+  //  const [profile, setProfile] = useGetOneProfile(userID);
 
-  
+  // console.log(profile)
+
+
+
 
   return (
     <div className="bg-gray-100">
@@ -55,7 +57,7 @@ const ProfileCard = () => {
                 />
                 {/* <h1 className="text-xl font-bold">{name} {familyName}</h1> */}
                 {/* <p className="text-gray-700">{role}</p> */}
-                
+
               </div>
               <hr className="my-6 border-t border-gray-300" />
               <div className="flex flex-col">
@@ -72,17 +74,17 @@ const ProfileCard = () => {
               </div>
             </div>
           </div>
-          
+
           {/* About Me and Experience Section */}
           <div className="col-span-4 sm:col-span-9">
             <div className="bg-white shadow rounded-lg p-6">
-            <div className="mt-6 flex flex-wrap gap-4 justify-center">
+              {/* <div className="mt-6 flex flex-wrap gap-4 justify-center">
                   <Link to={'/editProfile'} className="bg-amber-400 hover:bg-amber-600 text-white py-2 px-4 rounded">
                   
                     Добави данни
                   </Link>
                 
-                </div>
+                </div> */}
               <h2 className="text-xl font-bold mb-4">About Me</h2>
               <p className="text-gray-700">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed finibus est vitae tortor ullamcorper, ut vestibulum velit convallis. Aenean posuere risus non velit egestas suscipit. Nunc finibus vel ante id euismod. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aliquam erat volutpat. Nulla vulputate pharetra tellus, in luctus risus rhoncus id.
@@ -125,7 +127,7 @@ const ProfileCard = () => {
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed finibus est vitae tortor ullamcorper, ut vestibulum velit convallis. Aenean posuere risus non velit egestas suscipit.
                 </p>
               </div>
-         
+
             </div>
           </div>
         </div>
