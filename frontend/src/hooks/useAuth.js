@@ -1,6 +1,6 @@
-import { useContext } from "react"
+
 import { login, register, logout } from "../api/authApi"
-import { AuthContext } from "../context/authContext.jsx"
+import { AuthContext, useAuthContext } from "../context/authContext.jsx"
 import { useNavigate } from "react-router-dom"
 
 
@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom"
 
 
 export const useLogin = () => {
-    const { changeAuthState } = useContext(AuthContext)
+    const { changeAuthState } = useAuthContext()
     const loginHandler = async (email, password) => {
         try {
             const result = await login(email, password)
@@ -27,8 +27,7 @@ export const useLogin = () => {
 }
 
 export const useRegister = () => {
-    const { changeAuthState } = useContext(AuthContext)
-
+    const { changeAuthState } = useAuthContext()
     const registerHandler = async (email, password) => {
         const result = await register(email, password)
         changeAuthState(result);
@@ -42,7 +41,7 @@ export const useRegister = () => {
 export const useLogout = () => {
     
 
-    const { logout: localLogout } = useContext(AuthContext)
+    const { logout: localLogout } = useAuthContext()
 
     const logoutHandler = async () => {
          await logout();

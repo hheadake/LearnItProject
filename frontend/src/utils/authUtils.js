@@ -1,5 +1,6 @@
 export const getAccessToken = () => {
-    const authJSON = localStorage.getItem('auth');
+    const authJSON = localStorage.getItem('token');
+    //auth
     if (!authJSON) {
         return ''
     }

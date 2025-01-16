@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import DashboardLayoutBasic from './components/Dashboard';
 import MainPage from './components/MainPage/MainPage';
 
@@ -8,7 +8,7 @@ import QuizForm from './components/Test/QuizForm';
 import TestTable from './components/Test/TestTable';
 import LoginPage from './components/User/LoginPage';
 import RegisterPage from './components/User/RegisterPage';
-import { AuthContextProvider } from './context/authContext';
+import { AuthContextProvider} from './context/authContext';
 import Catalog from './components/Catalog/Catalog';
 import ExitLink from './components/Logout/ExitLink';
 import './index.css';
@@ -25,8 +25,8 @@ import FormProfile from './components/Profile/EditProfile';
 function App() {
   return (
     <AuthContextProvider>
-    <BrowserRouter>
-
+   
+    <div>
     <Routes>
       <Route path="/" element={<MainPage />} />
       <Route path="/dashboard/*" element={<DashboardLayoutBasic />} />
@@ -35,8 +35,8 @@ function App() {
       <Route path="/register" element={<RegisterPage />} />
       <Route path="/logout" element={<ExitLink />} />
     </Routes>
-    </BrowserRouter>
-
+   
+    </div>
 
     </AuthContextProvider>
 

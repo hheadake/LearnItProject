@@ -1,11 +1,11 @@
-import { createContext, useState } from "react";
+import { createContext, useContext, useState } from "react";
 import usePersistedState from "../hooks/usePersistedState";
 import { logout } from "../api/authApi";
 
 
 export const AuthContext = createContext({
     userID: '',
-    email: '',
+   
     accessToken: '',
     isAuthenticated: false,
     changeAuthState: (authState = {}) => null,
@@ -13,7 +13,7 @@ export const AuthContext = createContext({
 });
 
 export function AuthContextProvider(props) {
-    const [authState, setAuthState] = usePersistedState('auth', {})
+    const [authState, setAuthState] = usePersistedState('token', {})
     const changeAuthState = (state) => {
 
         localStorage.setItem('accessToken', state.accessToken)
@@ -26,9 +26,9 @@ export function AuthContextProvider(props) {
     }
 
     const contextData = {
-        userID: authState._id,
-        email: authState.email,
-        accessToken: authState.accessToken,
+        userID: authState?._id,
+        //email: authState?.email,
+        accessToken: authState?.accessToken,
         changeAuthState,
         isAuthenticated: !!authState?.email,
         logout,
@@ -45,4 +45,11 @@ export function AuthContextProvider(props) {
 
 
 
+
+}
+
+export function useAuthContext () {
+        
+    const authData = useContext(AuthContext);
+    return authData;
 }
