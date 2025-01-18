@@ -12,11 +12,7 @@ export const useLogin = () => {
     const loginHandler = async (email, password) => {
         try {
             const result = await login(email, password)
-            changeAuthState({
-                accessToken: result.accessToken,
-                email: result.email,
-                userId: result._id
-            });
+            changeAuthState(result);
             console.log(result)
         } catch (error) {
             console.log(error)

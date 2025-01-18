@@ -1,8 +1,8 @@
 import { getAccessToken } from "../utils/authUtils";
 
-export  async function requester(method, url, data) {
+export  async function requester(method, url, data, accessToken) {
      const options = {};
-        const accessToken = getAccessToken();
+     
         
     if (accessToken) {
         options.headers = {
