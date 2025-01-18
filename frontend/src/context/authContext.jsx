@@ -5,19 +5,20 @@ import { logout } from "../api/authApi";
 
 export const AuthContext = createContext({
     userID: '',
-   
     accessToken: '',
     isAuthenticated: false,
     changeAuthState: (authState = {}) => null,
-    logout: () => null,
+    //logout: () => null,
 });
 
 export function AuthContextProvider(props) {
-    const [authState, setAuthState] = usePersistedState('token', {})
+    const [authState, setAuthState] = usePersistedState({})
     const changeAuthState = (state) => {
 
         localStorage.setItem('accessToken', state.accessToken)
+
         setAuthState(state)
+        
 
     };
 
@@ -26,11 +27,11 @@ export function AuthContextProvider(props) {
     }
 
     const contextData = {
-        userID: authState?._id,
+        userID: authState._id,
         //email: authState?.email,
-        accessToken: authState?.accessToken,
-        changeAuthState,
-        isAuthenticated: !!authState?.email,
+        accessToken: authState.accessToken,
+        changeAuthState, 
+        //isAuthenticated: !!authState.email,
         logout,
 
     }
